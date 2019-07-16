@@ -17,17 +17,16 @@ export class AuthService {
 
     console.log('authservice, usuario', usuario);
 
-    if (usuario.dsEmail === "a" && usuario.snUsuario === "a") {
+    if (usuario.email === "a" && usuario.senha === "a") {
 
-      this.usuarioAutenticado = true;
-      console.log('if');
+      this.usuarioAutenticado = true;      
 
       this.mostrarMenuEmitter.emit(true);
 
       this.router.navigate(['/home']);
 
     } else {
-      console.log('else');
+      
       this.usuarioAutenticado = false;
 
       this.mostrarMenuEmitter.emit(false);

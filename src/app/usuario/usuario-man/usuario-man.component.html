@@ -1,0 +1,81 @@
+<!-- page script -->
+<script>
+    $(function () {
+      $("#example1").DataTable();
+      
+      
+    //   $('#example1').DataTable({
+    //     "paging": true,
+    //     "lengthChange": false,
+    //     "searching": false,
+    //     "ordering": true,
+    //     "info": true,
+    //     "autoWidth": false,
+    //   });
+    });
+  </script>
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Usuários</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Starter Page</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Usuários</h3>
+    </div>
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Login</th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Data Alteração</th>
+                    <th>Ativo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let usuario of usuarios">
+                    <td>
+                        {{ usuario.login }}
+                    </td>
+                    <td>
+                        {{ usuario.nmUsuario }}
+                    </td>
+                    <td>
+                        {{ usuario.email }}
+                    </td>
+                    <td>
+                        {{ usuario.dtUltAlt | date:'dd/MM/yyyy HH:mm:ss' }}
+                    </td>
+                    <td>
+                        {{ usuario.idAtivo ? 'Sim' : 'Não' }}
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Login</th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Data Alteração</th>
+                    <th>Ativo</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+

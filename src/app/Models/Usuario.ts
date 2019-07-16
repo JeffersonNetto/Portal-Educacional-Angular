@@ -1,10 +1,12 @@
 export class Usuario {
-    idUsuario:number;
+    cdUsuario:number;
     nmUsuario:string;
-    dsUsuario:string;
-    snUsuario:string;
+    login:string;
+    senha:string;
     nmComputador:string;
-    dtUltAlt:Date;
-    stMaster:boolean;
-    dsEmail:string;
+    dtUltAlt:Date = new Date();
+    stMaster:boolean = true;
+    email:string;
+    idAtivo:boolean = true;
+    dtIncReg:Date = new Date();
 }
