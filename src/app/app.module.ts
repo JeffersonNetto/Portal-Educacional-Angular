@@ -1,3 +1,4 @@
+import { AlunoModule } from './aluno/aluno.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -23,14 +24,15 @@ import { UsuarioModule } from './usuario/usuario.module';
     MenuComponent,
     SettingsComponent,
     HomeComponent,
-    LoginComponent,        
+    LoginComponent,      
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    UsuarioModule
+    UsuarioModule,
+    AlunoModule
   ],
   providers: [
     AuthService, 

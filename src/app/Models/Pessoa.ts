@@ -1,0 +1,25 @@
+export class Pessoa {
+    Id:number;
+    Tipo:string;
+    Nome:string;
+    Cpf:string;
+    Rg:string;
+    DtNascimento:Date;
+    Telefone:string;
+    Celular:string;
+    Email:string;
+    IdEstadoCivil:number;
+    IdGenero:number;
+    Profissao:string;
+    Cep:number;
+    Logradouro:string;
+    Numero:number;
+    Complemento:string;
+    Bairro:string;
+    Cidade:string;
+    Uf:string;
+    Latitude:string;
+    Longitude:string;
+    Login:string;
+    Senha:string;    
+}

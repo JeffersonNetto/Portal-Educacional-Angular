@@ -17,6 +17,6 @@ export class UsuarioManComponent implements OnInit {
 
   ngOnInit() {
     console.log('entrou');
-    this.usuarios = this.usuarioService.list();  
+    this.usuarioService.list();  
   }
 }

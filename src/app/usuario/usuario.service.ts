@@ -11,40 +11,14 @@ export class UsuarioService {
 
   private readonly API = `${environment.API}usuarios`;
 
-  lst: Usuario[] = [
-    { 
-      cdUsuario:1,
-      nmUsuario:'Jeff',
-      login:'jeff',
-      email:'jefferson@arwebsistemas.com',
-      idAtivo:true,
-      nmComputador:'::1',
-      dtIncReg: new Date(),
-      dtUltAlt: new Date(),
-      stMaster:true,
-      senha:'123',
-     },
-     { 
-      cdUsuario:2,
-      nmUsuario:'tatiane',
-      login:'tati',
-      email:'tati@teste.com',
-      idAtivo:true,
-      nmComputador:'::1',
-      dtIncReg: new Date(),
-      dtUltAlt: new Date(),
-      stMaster:true,
-      senha:'123',
-     },
-  ];
+  lst: Usuario[] = [];
 
   constructor(
     private http: HttpClient
   ) {  }
 
   list() {
-    //return this.http.get<Usuario[]>(this.API).pipe(take(1));
-    return this.lst;    
+    return this.http.get<Usuario[]>(this.API).pipe(take(1));    
   }
 
   loadByID(id: number) {
@@ -55,16 +29,16 @@ export class UsuarioService {
     return this.http.post(this.API, usuario).pipe(take(1));
   }
 
-  private update(usuario: Usuario) {
-    return this.http.put(`${this.API}/${usuario.cdUsuario}`, usuario).pipe(take(1));
-  }
+  // private update(usuario: Usuario) {
+  //   return this.http.put(`${this.API}/${usuario.cdUsuario}`, usuario).pipe(take(1));
+  // }
 
-  save(usuario: Usuario) {
-    if (usuario.cdUsuario) {
-      return this.update(usuario);
-    }
-    return this.create(usuario);
-  }
+  // save(usuario: Usuario) {
+  //   if (usuario.cdUsuario) {
+  //     return this.update(usuario);
+  //   }
+  //   return this.create(usuario);
+  // }
 
   remove(id: number) {
     return this.http.delete(`${this.API}/${id}`).pipe(take(1));
