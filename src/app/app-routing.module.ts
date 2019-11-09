@@ -7,7 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { AlunoModule } from './aluno/aluno.module';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },  
   {
     path: 'usuarios',
     loadChildren: () => UsuarioModule,

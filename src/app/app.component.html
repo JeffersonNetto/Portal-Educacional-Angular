@@ -1,7 +1,12 @@
-<app-header></app-header>
-<app-menu></app-menu>
-<div class="content-wrapper">
+<div *ngIf="currentUser">
+    <app-header></app-header>
+    <app-menu></app-menu>
+</div>
+
+<div [ngClass]="{'content-wrapper': currentUser }" class="content-wrapper">
     <router-outlet></router-outlet>
 </div>
-<app-settings></app-settings>
-<app-footer></app-footer>
+<div *ngIf="currentUser">
+    <app-settings></app-settings>
+    <app-footer></app-footer>
+</div>

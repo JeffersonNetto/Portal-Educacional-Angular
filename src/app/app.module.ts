@@ -1,3 +1,4 @@
+import { AlertComponent } from './guards/alert.component';
 import { AlunoModule } from './aluno/aluno.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,32 +12,35 @@ import { MenuComponent } from './menu/menu.component';
 import { SettingsComponent } from './settings/settings.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { AuthService } from './guards/auth.service';
-import { FormsModule } from '@angular/forms';
+import { AuthenticationService } from './guards/authentication.service';
+import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { UsuarioModule } from './usuario/usuario.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
+    LoginComponent,    
+    AlertComponent,    
     HeaderComponent,
     FooterComponent,
     MenuComponent,
-    SettingsComponent,
-    HomeComponent,
-    LoginComponent,      
+    SettingsComponent          
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
     UsuarioModule,
-    AlunoModule
+    AlunoModule                
   ],
   providers: [
-    AuthService, 
-    AuthGuard
+    AuthenticationService, 
+    AuthGuard,
+    FormBuilder
   ],
   bootstrap: [AppComponent]
 })

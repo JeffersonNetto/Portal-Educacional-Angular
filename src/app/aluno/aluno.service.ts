@@ -1,3 +1,4 @@
+import { Usuario } from './../Models/Usuario';
 import { Aluno } from './../Models/Aluno';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -13,13 +14,13 @@ export class AlunoService {
 
   Alunos: Aluno[] = [];
 
-  header = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') });
+  header = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('Usuario')).token });
 
   constructor(
     private http: HttpClient
   ) {  }
 
-  list() {
+  list() {    
     return this.http.get<Aluno[]>(this.API, { headers: this.header }).pipe(take(1));    
   }
 

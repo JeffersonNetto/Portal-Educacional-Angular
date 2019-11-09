@@ -22,4 +22,5 @@ export class Pessoa {
     Longitude:string;
     Login:string;
     Senha:string;    
+    Token:string;
 }

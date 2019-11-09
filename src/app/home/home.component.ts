@@ -1,5 +1,7 @@
+import { Usuario } from './../Models/Usuario';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../guards/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -8,15 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  usuario: Usuario;
 
-  ngOnInit() {
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService
+    ) { 
+      this.usuario = this.authenticationService.currentUserValue;
+    }
 
-    let token = localStorage.getItem('token');
-
-    console.log(token);
-
-    if(!token)
-      this.router.navigate(['/login']);
+  ngOnInit() { 
   }
 }

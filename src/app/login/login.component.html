@@ -1,4 +1,4 @@
-<div class="hold-transition login-page">
+<div class="hold-transition">
     <div class="login-box">
         <div class="login-logo">
             <a href="../../index2.html"><b>Admin</b>LTE</a>
@@ -8,19 +8,26 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Portal Educacional</p>
 
-                 
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                     <div class="input-group mb-3">
-                        <input [(ngModel)]="usuario.Login" type="email" class="form-control" placeholder="Usuário">
+                        <input type="text" formControlName="login" placeholder="Login" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.login.errors }" />
                         <div class="input-group-append input-group-text">
                             <span class="fas fa-envelope"></span>
                         </div>
+                        <div *ngIf="submitted && f.login.errors" class="invalid-feedback">
+                            <div *ngIf="f.login.errors.required">Username is required</div>
+                        </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input [(ngModel)]="usuario.Senha" type="password" class="form-control" placeholder="Senha">
+                        <input type="password" formControlName="senha" placeholder="Senha" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.senha.errors }" />
                         <div class="input-group-append input-group-text">
                             <span class="fas fa-lock"></span>
                         </div>
+                        <div *ngIf="submitted && f.senha.errors" class="invalid-feedback">
+                            <div *ngIf="f.senha.errors.required">Password is required</div>
+                        </div>
                     </div>
+                
                     <div class="row">
                         <!-- <div class="col-8">
                             <div class="icheck-primary">
@@ -32,12 +39,13 @@
                         </div> -->
                         <!-- /.col -->
                         <div class="col">
-                            <button type="submit" class="btn btn-primary btn-block btn-flat" (click)="fazerLogin()">Entrar</button>
-                            <i *ngIf="exibirLoader" class="spinner-border"></i>
+                            <button [disabled]="loading" type="submit" class="btn btn-primary btn-block btn-flat">
+                                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                Entrar</button>                            
                         </div>
                         <!-- /.col -->
                     </div>
-                
+                </form>
 
                 <!-- <div class="social-auth-links text-center mb-3">
                     <p>- OR -</p>

@@ -1,4 +1,7 @@
+import { Usuario } from './Models/Usuario';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from './guards/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ngx-admin-starter-kit';
+  currentUser: Usuario;
+
+  constructor(
+    private authenticationService: AuthenticationService
+  ) {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+  }
+
 }
