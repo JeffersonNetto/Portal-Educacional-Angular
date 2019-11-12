@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
         if (this.loginForm.invalid) {
             return;
         }
-
+        
         this.loading = true;
         this.authenticationService.login(this.f.login.value, this.f.senha.value)
             .pipe(first())
@@ -56,8 +56,15 @@ export class LoginComponent implements OnInit {
                 data => {                                                         
                     this.router.navigate([this.returnUrl]);
                 },
-                error => {
-                    this.alertService.error(error);
+                err => {      
+                                  
+                    if(err && err.error && err.error.message){
+                        this.alertService.error(err.error.message);
+                    }
+                    else{
+                        this.alertService.error('Ocorreu um erro inesperado. Tente novamente mais tarde.');
+                    }
+
                     this.loading = false;
                 });
     }

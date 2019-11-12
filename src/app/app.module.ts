@@ -26,7 +26,7 @@ import { UsuarioModule } from './usuario/usuario.module';
     HeaderComponent,
     FooterComponent,
     MenuComponent,
-    SettingsComponent          
+    SettingsComponent         
   ],
   imports: [
     BrowserModule,

@@ -24,11 +24,11 @@ export class AlunoListComponent implements OnInit {
 
     this.alunoService.list().subscribe(
       (success: Aluno[]) => {
-        console.log(success);
+        
         this.alunos = success;
       },      
       (err: HttpErrorResponse) => {
-        console.log(err);
+        
       },
       () => this.exibirLoader = !this.exibirLoader
     );  
