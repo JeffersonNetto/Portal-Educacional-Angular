@@ -1,1 +1,129 @@
-<p>aluno-form works!</p>
+  
+
+<section class="content">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Aluno</h3>
+        </div>
+        <form role="form" (ngSubmit)="Salvar()" [formGroup]="form">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input class="form-control" #nome formControlName="nome" id="nome" name="Nome"
+                        placeholder="Informe seu nome e sobrenome" type="text" />
+                    <label for="nome" style="color:#dc3545"
+                        *ngIf="form.controls['nome'].touched && !nomeValido(nome.value)" data-error="Invalid nome">
+                        Informe nome e sobrenome
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input class="form-control" formControlName="email" id="email" name="email"
+                        placeholder="Informe seu e-mail" type="text" />
+                    <label for="email" style="color:#dc3545"
+                        *ngIf="form.controls['email'].touched && !form.controls['email'].valid"
+                        data-error="Invalid email">
+                        Informe um e-mail válido
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="cpf">CPF</label>
+                            <input class="form-control" #cpf formControlName="cpf" id="cpf"
+                                [textMask]="{mask : cpfMask}" name="cpf" placeholder="000.000.000-00" type="text" />
+                            <label for="cpf" style="color:#dc3545"
+                                *ngIf="form.controls['cpf'].touched && !cpfValido(cpf.value)" data-error="Invalid cpf">
+                                Informe um CPF válido
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="rg">RG</label>
+                            <input class="form-control" #rg formControlName="rg" id="rg" name="rg" placeholder=""
+                                type="text" />
+                            <label for="rg" style="color:#dc3545"
+                                *ngIf="form.controls['rg'].touched && form.controls['rg'].value.length > 0 && form.controls['rg'].value.length < 8"
+                                data-error="Invalid rg">
+                                Informe um RG válido
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="telefone">Telefone</label>
+                            <input class="form-control" #telefone formControlName="telefone"
+                                [textMask]="{mask : foneMask}" id="telefone" name="telefone"
+                                placeholder="(00) 0000-0000" type="text" />
+                            <label for="telefone" style="color:#dc3545"
+                                *ngIf="form.controls['telefone'].touched && form.controls['telefone'].value.length > 0 && !telefoneValido(telefone.value)"
+                                data-error="Invalid telefone">
+                                Informe um número válido
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="celular">Celular</label>
+                            <input class="form-control" #celular formControlName="celular" [textMask]="{mask : celMask}"
+                                id="celular" name="celular" placeholder="(00) 00000-0000" type="text" />
+                            <label for="celular" style="color:#dc3545"
+                                *ngIf="form.controls['celular'].touched && !telefoneValido(celular.value)"
+                                data-error="Invalid celular">
+                                Informe um número válido
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="estadoCivil">Estado Civil</label>
+                            <select id="estadoCivil" name="estadoCivil" #estadoCivil class="form-control select2"
+                                style="width: 100%;">
+                                <option selected="selected">Selecione...</option>
+                                <option>Solteiro</option>
+                                <option>Casado</option>
+                                <option>Divorciado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+               
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="profissao">Profissão</label>
+                    <input class="form-control" formControlName="profissao" placeholder="" type="text" />
+                </div>
+
+                
+                    <app-endereco-form></app-endereco-form>
+                
+                
+
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary"
+                    [disabled]="!form.valid || !telefoneValido(celular.value) || !cpfValido(cpf.value) || !nomeValido(nome.value) || !form.controls['email'].valid">Salvar</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+<div class="form-group" [style.display]="exibirAlert ? 'block' : 'none'">
+    <div [ngClass]="sucesso ? ' alert-success' : ' alert-danger'" class="col-xs-12 text-center alert" role="alert">
+        {{ mensagem }}
+    </div>
+</div>
+<div *ngIf="exibirLoader" class="text-center">
+    Aguarde...
+    <i class="fa fa-spinner fa-spin"></i>
+</div>

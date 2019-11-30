@@ -6,19 +6,18 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AlunoModule } from './aluno/aluno.module';
 
-const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },  
+const routes: Routes = [  
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  // {
+  //   path: 'usuarios',
+  //   loadChildren: () => import('./aluno/aluno.module').then(m => m.DashboardModule)
+  //   //loadChildren: 'app/usuario/usuario.module#UsuarioModule'
+  //   canActivate: [AuthGuard],
+  // },
   {
-    path: 'usuarios',
-    loadChildren: () => UsuarioModule,
-    //loadChildren: 'app/usuario/usuario.module#UsuarioModule'
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'alunos',
-    loadChildren: () => AlunoModule,
-    //loadChildren: 'app/usuario/usuario.module#UsuarioModule'
-    canActivate: [AuthGuard],
+    path: 'alunos',    
+    loadChildren: () => import('./aluno/aluno.module').then(_ => _.AlunoModule)
+    //canActivate: [AuthGuard],
   },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },

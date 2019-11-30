@@ -1,5 +1,7 @@
 <div *ngIf="exibirLoader">Carregando...</div>
 
+
+
 <div class="content-header" *ngIf="!exibirLoader">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -16,6 +18,12 @@
     </div>
 </div>
 
+<div class="content-header">
+    <div class="text-right">
+        <a class="btn btn-success" routerLink="novo">Novo</a>
+    </div>
+</div>
+
 <div class="card" *ngIf="!exibirLoader">
     <div class="card-header">
         <h3 class="card-title">Alunos</h3>
@@ -23,11 +31,11 @@
     <div class="card-body">
         <table id="example1" class="table table-bordered table-striped">
             <thead>
-                <tr>                    
+                <tr>
                     <th>Nome</th>
                     <th>CPF</th>
                     <th>Celular</th>
-                    <th>E-mail</th>                                        
+                    <th>E-mail</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,7 +60,7 @@
                     <th>Nome</th>
                     <th>CPF</th>
                     <th>Celular</th>
-                    <th>E-mail</th> 
+                    <th>E-mail</th>
                 </tr>
             </tfoot>
         </table>

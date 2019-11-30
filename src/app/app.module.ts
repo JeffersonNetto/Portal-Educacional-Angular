@@ -1,8 +1,9 @@
+import { EnderecoService } from './endereco-form/endereco.service';
 import { AlertComponent } from './guards/alert.component';
 import { AlunoModule } from './aluno/aluno.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AuthGuard } from './guards/auth.guard';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './guards/authentication.service';
 import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { UsuarioModule } from './usuario/usuario.module';
+import { EnderecoFormComponent } from './endereco-form/endereco-form.component';
 
 
 @NgModule({
@@ -26,21 +28,27 @@ import { UsuarioModule } from './usuario/usuario.module';
     HeaderComponent,
     FooterComponent,
     MenuComponent,
-    SettingsComponent         
+    SettingsComponent    
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,
-    UsuarioModule,
+    HttpClientModule, //UsuarioModule,   
     AlunoModule                
+  ],
+  exports: [
+    
   ],
   providers: [
     AuthenticationService, 
+    EnderecoService,
     AuthGuard,
     FormBuilder
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   bootstrap: [AppComponent]
 })
