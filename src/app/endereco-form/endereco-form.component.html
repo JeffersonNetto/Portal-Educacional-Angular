@@ -5,27 +5,56 @@
         </div>
         <form role="form" [formGroup]="formEndereco">
             <div class="card-body">
-                <div class="form-group">
-                    <label for="cep">CEP</label>
-                    <input class="form-control" #cep formControlName="cep" id="cep" name="cep"
-                        placeholder="Informe seu CEP" type="text" />                  
-                </div>
-                <div class="form-group">
-                    <label for="logradouro">Logradouro</label>
-                    <input class="form-control" #logradouro formControlName="logradouro" id="logradouro" name="logradouro"
-                        placeholder="Informe seu logradouro" type="text" />      
-                </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-6 col-md-2">
                         <div class="form-group">
-                            <label for="estado">UF</label>
-                            <select id="estado" name="estado" formControlName="estado" #estado class="form-control select2" style="width: 100%;">                                
-                                <option value="{{ estado.ID }}" *ngFor="let estado of estados">{{ estado.Nome }}</option>
+                            <label for="cep">CEP</label>
+                            <input class="form-control" #cep formControlName="cep" id="cep" name="cep"
+                                (blur)="ConsultaCEP($event.target.value)" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <div class="form-group">
+                            <label for="estados">UF</label>
+                            <select (change)="CarregarCidades(estado.value)" id="estados" name="estados"
+                                formControlName="estado" #estado class="form-control" style="width: 100%;">
+                                <option [value]="estado.ID" *ngFor="let estado of estados">{{ estado.Nome }}</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-6">
-
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <label for="cidades">Cidade</label>
+                        <select id="cidades" name="cidades" formControlName="cidade" #cidade class="form-control"
+                            style="width: 100%;">
+                            <option [value]="cidade.ID" *ngFor="let cidade of cidades">{{ cidade.Nome }}</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="bairro">Bairro</label>
+                            <input class="form-control" formControlName="bairro" id="bairro"
+                                name="bairro" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="logradouro">Logradouro</label>
+                    <input class="form-control" #logradouro formControlName="logradouro" id="logradouro"
+                        name="logradouro" type="text" />
+                </div>
+                <div class="row">
+                    <div class="col-4 col-md-2">
+                        <label for="numero">Número</label>
+                        <input class="form-control" formControlName="numero" id="numero" name="numero" type="text" />
+                    </div>
+                    <div class="col-8 col-md-10">
+                        <div class="form-group">
+                            <label for="complemento">Complemento</label>
+                            <input class="form-control" formControlName="complemento" id="complemento"
+                                name="complemento" type="text" />
+                        </div>
                     </div>
                 </div>
             </div>
