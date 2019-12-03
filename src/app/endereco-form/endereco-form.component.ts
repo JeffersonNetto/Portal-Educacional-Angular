@@ -1,8 +1,9 @@
 import { EnderecoService } from './endereco.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Estados } from '../Models/Estados';
-import { Cidades } from './../Models/Cidades';
+import { Estados } from '../models/Estados';
+import { Cidades } from '../models/Cidades';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-endereco-form',
@@ -14,18 +15,18 @@ export class EnderecoFormComponent implements OnInit {
   formEndereco: FormGroup;
   estados: Estados[];
   cidades: Cidades[];
+  idEstado: number;
+  idCidade: number;
+  dados:any;
+  
 
-  constructor
-    (private service: EnderecoService,
+  constructor (
+      private service: EnderecoService,
       private fb: FormBuilder
     ) {
 
     this.formEndereco = this.fb.group({
-      cep: [''],
-      logradouro: ['', [
-        Validators.required,
-        Validators.minLength(2)
-      ]],
+      cep: [''],      
       estado: ['', [
         Validators.required
       ]],
@@ -34,6 +35,10 @@ export class EnderecoFormComponent implements OnInit {
       ]],
       bairro: ['', [
         Validators.required
+      ]],
+      logradouro: ['', [
+        Validators.required,
+        Validators.minLength(2)
       ]],
       numero: ['', [
         Validators.required
@@ -50,37 +55,54 @@ export class EnderecoFormComponent implements OnInit {
     );
   }
 
-  ConsultaCEP(cep: string) {
+  ConsultaCEP(cep: string) {    
 
     cep = cep.replace(/\D/g, '');
 
     if (cep != null && cep !== '') {
       this.service.consultaCEP(cep).subscribe(
-        (dados: any) => {          
+        (success: any) => {
 
-          console.log(dados);
-
-          this.formEndereco.patchValue({            
-            logradouro: dados.logradouro,
-            complemento: dados.complemento,
-            bairro: dados.bairro,        
-            cidade: '',
-            estado: this.estados.find(e => e.Sigla == dados.uf).ID    
-          });
+          this.dados = success;                    
+                              
         },
         err => console.log(err),
-        () => console.log('form', this.formEndereco.value)
+        () => {                              
+
+          this.idEstado = this.estados.find(_ => _.Sigla == this.dados.uf).ID;
+          this.CarregarCidades(this.idEstado, true);
+        }
       );
-      
+
     }
   }
 
-  CarregarCidades(idEstado: number) {
+  CarregarCidades(idEstado: number, preencherFormulario: boolean = false) {    
+
     this.service.getCidades(idEstado).subscribe(
-      success => {
+      (success) => {
+
         this.cidades = success;
+                
+      },
+      err => console.log(err),
+      () => {                
+        
+        if(preencherFormulario) {          
+          this.PreencherFormulario();        
+        }
+                
       }
     );
+  }
 
+  PreencherFormulario() {
+    this.formEndereco.patchValue({
+      logradouro: this.dados.logradouro,
+      complemento: this.dados.complemento,
+      bairro: this.dados.bairro,
+      cidade: this.cidades.find(_ => _.Nome == this.dados.localidade).ID,
+      estado: this.idEstado
+    });
   }
 }
