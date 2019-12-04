@@ -16,13 +16,13 @@ export class AlunoFormComponent implements OnInit {
   celMask = ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   foneMask = ['(', /[1-8]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   cpfMask = [/[0-9]/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
-  mensagem:string;
-  sucesso:boolean = false;
+  mensagem: string;
+  sucesso: boolean = false;
 
   constructor(
     private service: AlunoService,
     private fb: FormBuilder,
-  ) { 
+  ) {
 
     this.form = this.fb.group({
       nome: ['', [
@@ -35,47 +35,55 @@ export class AlunoFormComponent implements OnInit {
       ]],
       rg: [''],
       telefone: [''],
-      profissao: [''],      
-      celular: ['', [      
-        Validators.required,  
+      profissao: [''],
+      celular: ['', [
+        Validators.required,
         Validators.minLength(10)
       ]],
       email: ['', [
         Validators.required,
         Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
       ]],
+      cep: [''],
+      logradouro: ['', Validators.required],
+      bairro: ['', Validators.required],
+      cidade: ['', Validators.required],
+      estado: ['', Validators.required],
+      numero: ['', Validators.required],
+      complemento: [''],
     });
 
   }
 
   ngOnInit() {
-    
+
   }
 
-  Salvar() {    
-    
+  Salvar() {
+
     this.exibirLoader = true;
 
-    this.form.value.nome = this.form.value.nome.replace(/\s{2,}/g, ' '); 
-    
-    this.form.value.nome = this.form.value.nome.trim();        
-    
-    
-    this.service.save(this.form.value).subscribe(
-      (success: any) => {              
-        this.mensagem = 'Pré-inscrição realizada com sucesso! Um e-mail foi enviado para o endereço informado. Verifique sua caixa de spam!';
-        this.sucesso = success.sucesso;
-        this.exibirAlert = true;
-        this.exibirLoader = false;
-      },
-      (err: HttpErrorResponse) => {            
-        this.mensagem = err.error.mensagem;
-        this.sucesso = err.error.sucesso;
-        this.exibirAlert = true;
-        this.exibirLoader = false;
-      },      
-    );
-      
+    this.form.value.nome = this.form.value.nome.replace(/\s{2,}/g, ' ');
+
+    this.form.value.nome = this.form.value.nome.trim();
+
+    console.log(this.form.value);
+
+    // this.service.save(this.form.value).subscribe(
+    //   (success: any) => {              
+    //     this.mensagem = 'Pré-inscrição realizada com sucesso! Um e-mail foi enviado para o endereço informado. Verifique sua caixa de spam!';
+    //     this.sucesso = success.sucesso;
+    //     this.exibirAlert = true;
+    //     this.exibirLoader = false;
+    //   },
+    //   (err: HttpErrorResponse) => {            
+    //     this.mensagem = err.error.mensagem;
+    //     this.sucesso = err.error.sucesso;
+    //     this.exibirAlert = true;
+    //     this.exibirLoader = false;
+    //   },      
+    // );
+
   }
 
   nomeValido(nome: string) {
@@ -83,14 +91,28 @@ export class AlunoFormComponent implements OnInit {
     return reTipo.test(nome) && nome.length >= 6;
   }
 
-  cpfValido(cpf: string) {    
-    let result = cpf.replace(/_/g, '').replace('-', '').replace(/\./g, '');    
+  cpfValido(cpf: string) {
+    let result = cpf.replace(/_/g, '').replace('-', '').replace(/\./g, '');
     return result.length == 11;
   }
 
   telefoneValido(celular: string) {
     let result = celular.replace('(', '').replace(')', '').replace(' ', '').replace('-', '').replace(/_/g, '');
     return result.length > 10;
+  }
+
+  DefinirEndereco(endereco: any) {    
+
+    this.form.patchValue({
+      cep: endereco.cep,
+      logradouro: endereco.logradouro,
+      bairro: endereco.bairro,
+      cidade: endereco.cidade,
+      estado: endereco.estado,
+      numero: endereco.numero,
+      complemento: endereco.complemento,
+    });    
+
   }
 
 }

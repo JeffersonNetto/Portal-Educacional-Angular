@@ -1,9 +1,8 @@
 import { EnderecoService } from './endereco.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Estados } from '../models/Estados';
 import { Cidades } from '../models/Cidades';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-endereco-form',
@@ -17,16 +16,18 @@ export class EnderecoFormComponent implements OnInit {
   cidades: Cidades[];
   idEstado: number;
   idCidade: number;
-  dados:any;
-  
+  dados: any;
 
-  constructor (
-      private service: EnderecoService,
-      private fb: FormBuilder
-    ) {
+  @Output() emissor = new EventEmitter();
+
+
+  constructor(
+    private service: EnderecoService,
+    private fb: FormBuilder
+  ) {
 
     this.formEndereco = this.fb.group({
-      cep: [''],      
+      cep: [''],
       estado: ['', [
         Validators.required
       ]],
@@ -52,10 +53,10 @@ export class EnderecoFormComponent implements OnInit {
       success => {
         this.estados = success;
       }
-    );
+    );   
   }
 
-  ConsultaCEP(cep: string) {    
+  ConsultaCEP(cep: string) {
 
     cep = cep.replace(/\D/g, '');
 
@@ -63,11 +64,11 @@ export class EnderecoFormComponent implements OnInit {
       this.service.consultaCEP(cep).subscribe(
         (success: any) => {
 
-          this.dados = success;                    
-                              
+          this.dados = success;
+
         },
         err => console.log(err),
-        () => {                              
+        () => {
 
           this.idEstado = this.estados.find(_ => _.Sigla == this.dados.uf).ID;
           this.CarregarCidades(this.idEstado, true);
@@ -77,32 +78,39 @@ export class EnderecoFormComponent implements OnInit {
     }
   }
 
-  CarregarCidades(idEstado: number, preencherFormulario: boolean = false) {    
+  CarregarCidades(idEstado: number, preencherFormulario: boolean = false) {
 
     this.service.getCidades(idEstado).subscribe(
       (success) => {
 
         this.cidades = success;
-                
+
       },
       err => console.log(err),
-      () => {                
-        
-        if(preencherFormulario) {          
-          this.PreencherFormulario();        
+      () => {
+
+        if (preencherFormulario) {
+          this.PreencherFormulario();
         }
-                
+
       }
     );
   }
 
   PreencherFormulario() {
     this.formEndereco.patchValue({
-      logradouro: this.dados.logradouro,
-      complemento: this.dados.complemento,
+      logradouro: this.dados.logradouro,      
       bairro: this.dados.bairro,
       cidade: this.cidades.find(_ => _.Nome == this.dados.localidade).ID,
-      estado: this.idEstado
+      estado: this.idEstado,
+      numero: this.formEndereco.get('numero').value,
+      complemento: this.formEndereco.get('complemento').value
     });
+
+    this.Emitir();
+  }
+
+  Emitir() {    
+    this.emissor.emit(this.formEndereco.value);
   }
 }

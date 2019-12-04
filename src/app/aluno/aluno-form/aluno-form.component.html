@@ -60,7 +60,7 @@
                                 [textMask]="{mask : foneMask}" id="telefone" name="telefone"
                                 placeholder="(00) 0000-0000" type="text" />
                             <label for="telefone" style="color:#dc3545"
-                                *ngIf="form.controls['telefone'].touched && form.controls['telefone'].value.length > 0 && !telefoneValido(telefone.value)"
+                                *ngIf="form.controls['telefone'].touched && form.controls['telefone'].value.length > 0 && form.controls['telefone'].value.length < 14"
                                 data-error="Invalid telefone">
                                 Informe um número válido
                             </label>
@@ -104,7 +104,7 @@
                 </div>
 
                 
-                    <app-endereco-form></app-endereco-form>
+                    <app-endereco-form (emissor)="DefinirEndereco($event)"></app-endereco-form>
                 
                 
 
