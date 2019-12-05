@@ -25,15 +25,15 @@ export class AlunoService {
   }
 
   loadByID(id: number) {
-    return this.http.get<Aluno>(`${this.API}/${id}`).pipe(take(1));
+    return this.http.get<Aluno>(`${this.API}/${id}`, { headers: this.header }).pipe(take(1));
   }
 
   private create(aluno: Aluno) {
-    return this.http.post(this.API, aluno).pipe(take(1));
+    return this.http.post(this.API, aluno, { headers: this.header }).pipe(take(1));
   }
 
   private update(aluno: Aluno) {
-    return this.http.put(`${this.API}/${aluno.Id}`, aluno).pipe(take(1));
+    return this.http.put(`${this.API}/${aluno.Id}`, aluno, { headers: this.header }).pipe(take(1));
   }
 
   save(aluno: Aluno) {
@@ -44,6 +44,6 @@ export class AlunoService {
   }
 
   remove(id: number) {
-    return this.http.delete(`${this.API}/${id}`).pipe(take(1));
+    return this.http.delete(`${this.API}/${id}`, { headers: this.header }).pipe(take(1));
   }
 }

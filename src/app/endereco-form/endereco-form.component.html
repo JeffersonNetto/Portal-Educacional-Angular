@@ -15,9 +15,9 @@
                     </div>
                     <div class="col-6 col-md-2">
                         <div class="form-group">
-                            <label for="estados">UF</label>
-                            <select (change)="CarregarCidades(estado.value)" id="estados" name="estados"
-                                formControlName="estado" #estado class="form-control" style="width: 100%;">
+                            <label for="uf">UF</label>
+                            <select (change)="CarregarCidades(uf.value)" id="uf" name="uf"
+                                formControlName="uf" #uf class="form-control" style="width: 100%;">
                                 <option [value]="estado.ID" *ngFor="let estado of estados">{{ estado.Nome }}</option>
                             </select>
                         </div>

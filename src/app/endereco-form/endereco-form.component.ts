@@ -28,7 +28,7 @@ export class EnderecoFormComponent implements OnInit {
 
     this.formEndereco = this.fb.group({
       cep: [''],
-      estado: ['', [
+      uf: ['', [
         Validators.required
       ]],
       cidade: ['', [
@@ -102,7 +102,7 @@ export class EnderecoFormComponent implements OnInit {
       logradouro: this.dados.logradouro,      
       bairro: this.dados.bairro,
       cidade: this.cidades.find(_ => _.Nome == this.dados.localidade).ID,
-      estado: this.idEstado,
+      uf: this.idEstado,
       numero: this.formEndereco.get('numero').value,
       complemento: this.formEndereco.get('complemento').value
     });

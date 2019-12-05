@@ -2,6 +2,7 @@ import { AlunoService } from './../aluno.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { IpService } from 'src/app/services/ip.service';
 
 @Component({
   selector: 'app-aluno-form',
@@ -18,10 +19,12 @@ export class AlunoFormComponent implements OnInit {
   cpfMask = [/[0-9]/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
   mensagem: string;
   sucesso: boolean = false;
+  ip: string;
 
   constructor(
     private service: AlunoService,
     private fb: FormBuilder,
+    private ipService: IpService
   ) {
 
     this.form = this.fb.group({
@@ -48,30 +51,39 @@ export class AlunoFormComponent implements OnInit {
       logradouro: ['', Validators.required],
       bairro: ['', Validators.required],
       cidade: ['', Validators.required],
-      estado: ['', Validators.required],
+      uf: ['', Validators.required],
       numero: ['', Validators.required],
       complemento: [''],
+      login: ['abc'],
+      senha: ['abc'],
+      ip: ['']
     });
 
   }
 
   ngOnInit() {
+    this.getIp();
+  }
 
+  getIp() {
+    this.ipService.getIPAddress().subscribe(
+      (success: any) => {         
+        this.ip = success.ip;        
+      }
+    );
   }
 
   Salvar() {
 
     this.exibirLoader = true;
-
-    this.form.value.nome = this.form.value.nome.replace(/\s{2,}/g, ' ');
-
-    this.form.value.nome = this.form.value.nome.trim();
+    
+    this.prepararCampos();  
 
     console.log(this.form.value);
 
     // this.service.save(this.form.value).subscribe(
     //   (success: any) => {              
-    //     this.mensagem = 'Pré-inscrição realizada com sucesso! Um e-mail foi enviado para o endereço informado. Verifique sua caixa de spam!';
+    //     this.mensagem = 'Registro salvo com sucesso!';
     //     this.sucesso = success.sucesso;
     //     this.exibirAlert = true;
     //     this.exibirLoader = false;
@@ -86,6 +98,18 @@ export class AlunoFormComponent implements OnInit {
 
   }
 
+  prepararCampos() {
+    this.form.value.nome = this.form.value.nome.replace(/\s{2,}/g, ' ');
+    this.form.value.nome = this.form.value.nome.trim();
+    this.form.value.cpf = this.removerCaracteresNaoNumericos(this.form.value.cpf);
+    this.form.value.celular = this.removerCaracteresNaoNumericos(this.form.value.celular);
+    this.form.value.telefone = this.removerCaracteresNaoNumericos(this.form.value.telefone);
+    this.form.value.rg = this.removerCaracteresNaoNumericos(this.form.value.rg);
+    this.form.value.email = this.form.value.email.trim();    
+    this.form.value.ip = this.ip;
+    console.log('terminou prepararCampos');
+  }
+
   nomeValido(nome: string) {
     var reTipo = /[A-z][ ][A-z]/;
     return reTipo.test(nome) && nome.length >= 6;
@@ -94,6 +118,10 @@ export class AlunoFormComponent implements OnInit {
   cpfValido(cpf: string) {
     let result = cpf.replace(/_/g, '').replace('-', '').replace(/\./g, '');
     return result.length == 11;
+  }
+
+  removerCaracteresNaoNumericos(value: string) {
+    return value.replace(/\_/g, '').replace(/\-/g, '').replace(/\./g, '').replace(/\(/g,'').replace(/\)/g,'').replace(/\' '/g,'').replace(' ','').trim();
   }
 
   telefoneValido(celular: string) {
@@ -108,7 +136,7 @@ export class AlunoFormComponent implements OnInit {
       logradouro: endereco.logradouro,
       bairro: endereco.bairro,
       cidade: endereco.cidade,
-      estado: endereco.estado,
+      uf: endereco.uf,
       numero: endereco.numero,
       complemento: endereco.complemento,
     });    
