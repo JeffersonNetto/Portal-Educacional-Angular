@@ -1,5 +1,5 @@
-import { Estados } from './../Models/Estados';
-import { Cidades } from './../Models/Cidades';
+import { Estados } from './../models/Estados';
+import { Cidades } from './../models/Cidades';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { take, map } from 'rxjs/operators';

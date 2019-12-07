@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
-import { Usuario } from './../Models/Usuario';
+import { Usuario } from './../models/Usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class UsuarioService {
   ) {  }
 
   list() {
-    return this.http.get<Usuario[]>(this.API).pipe(take(1));    
+    return this.http.get<Usuario[]>(this.API).pipe(take(1));
   }
 
   loadByID(id: number) {

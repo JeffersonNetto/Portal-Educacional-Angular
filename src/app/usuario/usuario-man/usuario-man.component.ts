@@ -1,6 +1,6 @@
 import { UsuarioService } from './../usuario.service';
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from 'src/app/Models/Usuario';
+import { Usuario } from 'src/app/models/Usuario';
 
 @Component({
   selector: 'app-usuario-man',

@@ -7,9 +7,9 @@ import { take } from 'rxjs/operators';
 })
 export class IpService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   public getIPAddress() {
-    return this.http.get("http://api.ipify.org/?format=json").pipe(take(1));
+    return this.http.get('http://api.ipify.org/?format=json').pipe(take(1));
   }
 }

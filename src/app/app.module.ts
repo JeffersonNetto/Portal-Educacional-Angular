@@ -1,3 +1,4 @@
+import { TextMaskModule } from 'node_modules/angular2-text-mask';
 import { EnderecoService } from './endereco-form/endereco.service';
 import { AlertComponent } from './guards/alert.component';
 import { AlunoModule } from './aluno/aluno.module';
@@ -36,7 +37,8 @@ import { EnderecoFormComponent } from './endereco-form/endereco-form.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule, //UsuarioModule,   
-    AlunoModule                
+    AlunoModule,
+    TextMaskModule                
   ],
   exports: [
     

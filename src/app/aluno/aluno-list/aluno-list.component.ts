@@ -1,4 +1,4 @@
-import { Aluno } from './../../Models/Aluno';
+import { Aluno } from './../../models/Aluno';
 import { AlunoService } from './../aluno.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';

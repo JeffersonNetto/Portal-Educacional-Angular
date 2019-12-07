@@ -1,4 +1,4 @@
-import { Usuario } from './../Models/Usuario';
+import { Usuario } from './../models/Usuario';
 import { Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthenticationService } from '../guards/authentication.service';

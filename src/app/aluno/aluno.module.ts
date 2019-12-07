@@ -10,7 +10,7 @@ import { AlunoService } from './aluno.service';
 import { AlunoRoutingModule } from './aluno-routing.module';
 import { RouterModule } from '@angular/router';
 import { AlunoComponent } from './aluno.component';
-import { TextMaskModule } from 'angular2-Text-Mask';
+import { TextMaskModule } from 'node_modules/angular2-text-mask';
 import { HttpClientModule } from '@angular/common/http';
 import { EnderecoFormComponent } from '../endereco-form/endereco-form.component';
 

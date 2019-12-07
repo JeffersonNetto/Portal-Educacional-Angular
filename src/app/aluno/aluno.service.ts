@@ -1,5 +1,5 @@
-import { Usuario } from './../Models/Usuario';
-import { Aluno } from './../Models/Aluno';
+import { Usuario } from './../models/Usuario';
+import { Aluno } from './../models/Aluno';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { take } from 'rxjs/operators';

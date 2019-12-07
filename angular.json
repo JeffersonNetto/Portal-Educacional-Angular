@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-admin-starter-kit": {
+    "portal-educacional-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ngx-admin-starter-kit",
+            "outputPath": "dist/portal-educacional-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngx-admin-starter-kit:build"
+            "browserTarget": "portal-educacional-angular:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ngx-admin-starter-kit:build:production"
+              "browserTarget": "portal-educacional-angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngx-admin-starter-kit:build"
+            "browserTarget": "portal-educacional-angular:build"
           }
         },
         "test": {
@@ -110,15 +110,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ngx-admin-starter-kit:serve"
+            "devServerTarget": "portal-educacional-angular:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ngx-admin-starter-kit:serve:production"
+              "devServerTarget": "portal-educacional-angular:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "ngx-admin-starter-kit"
+  "defaultProject": "portal-educacional-angular"
 }

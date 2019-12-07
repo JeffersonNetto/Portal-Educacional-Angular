@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService,        
+        private authenticationService: AuthenticationService,
         private alertService: AlertService
     ) {
         // redirect to home if already logged in
@@ -48,20 +48,20 @@ export class LoginComponent implements OnInit {
         if (this.loginForm.invalid) {
             return;
         }
-        
+
         this.loading = true;
         this.authenticationService.login(this.f.login.value, this.f.senha.value)
             .pipe(first())
             .subscribe(
-                data => {                                                         
+                data => {
                     this.router.navigate([this.returnUrl]);
                 },
-                err => {      
-                                  
-                    if(err && err.error && err.error.message){
+                err => {
+
+                    if (err && err.error && err.error.message) {
                         this.alertService.error(err.error.message);
                     }
-                    else{
+                    else {
                         this.alertService.error('Ocorreu um erro inesperado. Tente novamente mais tarde.');
                     }
 
